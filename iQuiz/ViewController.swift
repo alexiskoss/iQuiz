@@ -24,7 +24,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.imageView?.image = UIImage(named: subjectName)
         
         return cell
-    } 
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
     @IBAction func settingsPress(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "Settings go here.", preferredStyle: .alert)
@@ -40,6 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tblQuiz.dataSource = self
+        tblQuiz.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {
