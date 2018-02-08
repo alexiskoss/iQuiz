@@ -8,7 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+    @IBOutlet weak var tblQuiz: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subjects.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
+        let subjectName = subjects[indexPath.row]
+        
+        cell.textLabel?.text = subjects[indexPath.row]
+        cell.detailTextLabel?.text = "\(subjectName) is so much fun to learn!"
+        cell.imageView?.image = UIImage(named: subjectName)
+        
+        return cell
+    } 
 
     @IBAction func settingsPress(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "Settings go here.", preferredStyle: .alert)
@@ -19,9 +35,11 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        tblQuiz.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
