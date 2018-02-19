@@ -25,6 +25,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
     @IBAction func settingsPress(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "Settings go here.", preferredStyle: .alert)

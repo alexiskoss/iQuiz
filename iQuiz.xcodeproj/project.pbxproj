@@ -12,6 +12,7 @@
 		FC4253CA202C358A00501337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC4253C8202C358A00501337 /* Main.storyboard */; };
 		FC4253CC202C358A00501337 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC4253CB202C358A00501337 /* Assets.xcassets */; };
 		FC4253CF202C358A00501337 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC4253CD202C358A00501337 /* LaunchScreen.storyboard */; };
+		FC4253D7202C55C600501337 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4253D6202C55C600501337 /* QuestionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		FC4253CB202C358A00501337 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC4253CE202C358A00501337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC4253D0202C358A00501337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC4253D6202C55C600501337 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				FC4253C4202C358A00501337 /* AppDelegate.swift */,
 				FC4253C6202C358A00501337 /* ViewController.swift */,
+				FC4253D6202C55C600501337 /* QuestionViewController.swift */,
 				FC4253C8202C358A00501337 /* Main.storyboard */,
 				FC4253CB202C358A00501337 /* Assets.xcassets */,
 				FC4253CD202C358A00501337 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			files = (
 				FC4253C7202C358A00501337 /* ViewController.swift in Sources */,
 				FC4253C5202C358A00501337 /* AppDelegate.swift in Sources */,
+				FC4253D7202C55C600501337 /* QuestionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
