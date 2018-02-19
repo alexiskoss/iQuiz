@@ -9,7 +9,14 @@
 import UIKit
 
 class QuestionViewController: UIViewController {
-
+    
+    var subject: Subject?
+    var answerSelected = 0;
+    var questionNumber = 0;
+    var numberCorrect = 0;
+    
+    @IBOutlet weak var buttonLabel: UILabel!
+    
     @IBOutlet weak var answerChoiceOne: UIButton!
     @IBOutlet weak var answerChoiceTwo: UIButton!
     @IBOutlet weak var answerChoiceThree: UIButton!
@@ -23,6 +30,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceOne.isSelected = true
+            answerSelected = 0;
             answerChoiceTwo.isSelected = false
             answerChoiceThree.isSelected = false
             answerChoiceFour.isSelected = false
@@ -36,6 +44,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceTwo.isSelected = true
+            answerSelected = 1;
             answerChoiceOne.isSelected = false
             answerChoiceThree.isSelected = false
             answerChoiceFour.isSelected = false
@@ -49,8 +58,9 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceThree.isSelected = true
+            answerSelected = 2;
             answerChoiceTwo.isSelected = false
-            answerChoiceThree.isSelected = false
+            answerChoiceOne.isSelected = false
             answerChoiceFour.isSelected = false
             submitButton.isEnabled = true
         }
@@ -62,35 +72,35 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceFour.isSelected = true
+            answerSelected = 3;
             answerChoiceTwo.isSelected = false
             answerChoiceOne.isSelected = false
-            answerChoiceFour.isSelected = false
+            answerChoiceThree.isSelected = false
             submitButton.isEnabled = true
         }
     }
     
-
+    @IBAction func submitPress(_ sender: UIButton) {
+        let AnswerViewController = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
+        AnswerViewController.subject = self.subject 
+        AnswerViewController.questionNumber = self.questionNumber
+        AnswerViewController.numberCorrect = self.numberCorrect
+        AnswerViewController.answerSelected = self.answerSelected
+        self.present(AnswerViewController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        buttonLabel.text = "Q #\(questionNumber + 1): " + (subject?.questions[questionNumber].questionText)!
+        answerChoiceOne.setTitle(subject?.questions[questionNumber].choices[0], for: .normal)
+        answerChoiceTwo.setTitle(subject?.questions[questionNumber].choices[1], for: .normal)
+        answerChoiceThree.setTitle(subject?.questions[questionNumber].choices[2], for: .normal)
+        answerChoiceFour.setTitle(subject?.questions[questionNumber].choices[3], for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

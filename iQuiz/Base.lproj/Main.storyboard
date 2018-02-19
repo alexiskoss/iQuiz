@@ -55,9 +55,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="c8i-mR-L2I" kind="show" id="uoq-Un-BnT"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -144,7 +141,7 @@
         <!--Title-->
         <scene sceneID="5nJ-fI-Ok6">
             <objects>
-                <viewController id="c8i-mR-L2I" customClass="QuestionViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuestionViewController" id="c8i-mR-L2I" customClass="QuestionViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ycv-xi-DW5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -197,13 +194,16 @@
                                         <rect key="frame" x="0.0" y="60" width="374" height="30"/>
                                         <state key="normal" title="Submit"/>
                                         <connections>
-                                            <segue destination="PAT-JG-Do1" kind="show" id="TI6-0u-w1r"/>
+                                            <action selector="submitPress:" destination="c8i-mR-L2I" eventType="touchUpInside" id="dG4-E8-tvU"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="LTe-8e-faK">
-                                <rect key="frame" x="167.66666666666666" y="356" width="79" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTe-8e-faK">
+                                <rect key="frame" x="168" y="356" width="79" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="pMD-Co-rRL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -211,6 +211,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AiS-Ub-YEl">
                                 <rect key="frame" x="20" y="20" width="98" height="30"/>
                                 <state key="normal" title="Back to topics"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="wFM-0M-ddY"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -233,17 +236,18 @@
                         <outlet property="answerChoiceOne" destination="0vG-9h-fT6" id="Bcq-4d-zYd"/>
                         <outlet property="answerChoiceThree" destination="UEX-lw-reP" id="fBc-9I-dMD"/>
                         <outlet property="answerChoiceTwo" destination="7xt-V5-W5F" id="Is9-sv-Wu7"/>
+                        <outlet property="buttonLabel" destination="LTe-8e-faK" id="ikW-XM-6vR"/>
                         <outlet property="submitButton" destination="PY8-jk-XB6" id="Blh-nH-ejO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PV3-ap-uvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="990" y="131"/>
+            <point key="canvasLocation" x="989.85507246376824" y="130.43478260869566"/>
         </scene>
-        <!--View Controller-->
+        <!--Answer View Controller-->
         <scene sceneID="sHZ-5k-Jyg">
             <objects>
-                <viewController id="PAT-JG-Do1" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnswerViewController" id="PAT-JG-Do1" customClass="AnswerViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zdn-xl-mhF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -275,10 +279,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYs-3l-ht4">
                                 <rect key="frame" x="362" y="686" width="32" height="30"/>
                                 <state key="normal" title="Next"/>
+                                <connections>
+                                    <segue destination="c8i-mR-L2I" kind="show" id="7Ae-pQ-dfm"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="959-8w-fDz">
                                 <rect key="frame" x="20" y="20" width="98" height="30"/>
                                 <state key="normal" title="Back to topics"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="tEe-eg-jJr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -301,6 +311,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bgs-UK-3M9"/>
+        <segue reference="wFM-0M-ddY"/>
     </inferredMetricsTieBreakers>
 </document>
