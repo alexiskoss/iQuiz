@@ -95,7 +95,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Swx-To-cY0">
-                                <rect key="frame" x="23" y="341" width="0.0" height="54.333333333333314"/>
+                                <rect key="frame" x="0.0" y="341" width="0.0" height="54.333333333333314"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukn-UK-XgN">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="24"/>
@@ -124,6 +124,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="dD6-PN-buF" firstAttribute="trailing" secondItem="CIl-v4-RcM" secondAttribute="trailing" constant="20" id="843-qE-xbm"/>
                             <constraint firstItem="Swx-To-cY0" firstAttribute="centerX" secondItem="4yz-bX-gSD" secondAttribute="centerX" id="EaI-oy-3bM"/>
@@ -135,6 +136,9 @@
                             <constraint firstItem="dD6-PN-buF" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SwW-5M-MLH" secondAttribute="trailing" constant="296" id="yaH-Un-Op4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dD6-PN-buF"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="6Vu-bZ-cJZ" appends="YES" id="kTd-8s-kw7"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="displayLabel" destination="Ukn-UK-XgN" id="MR0-Fz-nHo"/>
@@ -142,6 +146,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1wJ-OQ-Fxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="6Vu-bZ-cJZ">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="T4t-gD-ccj"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="145" y="838"/>
         </scene>
@@ -236,6 +245,9 @@
                             <constraint firstItem="U24-hO-YJI" firstAttribute="trailing" secondItem="wIf-h0-nbg" secondAttribute="trailing" constant="20" id="dPw-nT-6fS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U24-hO-YJI"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="sKQ-nH-Ihq" appends="YES" id="D69-dM-8yp"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="VnU-wN-EfO"/>
                     <connections>
@@ -248,6 +260,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PV3-ap-uvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="sKQ-nH-Ihq">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="ja8-El-6xn"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="989.85507246376824" y="130.43478260869566"/>
         </scene>
@@ -303,6 +320,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="bcB-fX-Hgv" firstAttribute="bottom" secondItem="jYs-3l-ht4" secondAttribute="bottom" constant="20" id="18h-64-HQ7"/>
                             <constraint firstItem="959-8w-fDz" firstAttribute="leading" secondItem="bcB-fX-Hgv" secondAttribute="leading" constant="20" id="1gD-0R-a9Z"/>
@@ -314,6 +332,9 @@
                             <constraint firstItem="959-8w-fDz" firstAttribute="top" secondItem="bcB-fX-Hgv" secondAttribute="top" id="xky-ks-NZ6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bcB-fX-Hgv"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="znK-mv-i58" appends="YES" id="Ogr-L5-XTA"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="correctAnswer" destination="7fK-61-rWi" id="hbR-8F-kLC"/>
@@ -322,6 +343,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xbp-tv-6rm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="znK-mv-i58">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="qzb-5m-Gnn"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1752.1739130434785" y="129.61956521739131"/>
         </scene>
