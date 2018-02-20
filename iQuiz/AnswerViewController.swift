@@ -26,13 +26,13 @@ class AnswerViewController: UIViewController {
         
         //re-display question + correct answer
         questionLabel.text = "Q #\(questionNumber + 1): " + (subject?.questions[questionNumber].questionText)!
-        correctAnswer.text = "The correct answer was " +  (subject?.questions[questionNumber].choices[(subject?.questions[questionNumber].answer)!])!
+        correctAnswer.text = "The correct answer was " +  (subject?.questions[questionNumber].choices[(subject?.questions[questionNumber].answer)! - 1])!
         if(answerSelected == subject?.questions[questionNumber].answer) { //correct
             numberCorrect = numberCorrect + 1
             wasItCorrectLabel.text = "You were correct! You have guessed \(numberCorrect) right so far."
         } else { //not correct
             correctAnswer.backgroundColor = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 0.6)
-            wasItCorrectLabel.text = "Sorry, you got it wrong! You answered " + (subject?.questions[questionNumber].choices[(answerSelected)])!
+            wasItCorrectLabel.text = "Sorry, you got it wrong! You answered " + (subject?.questions[questionNumber].choices[(answerSelected - 1)])!
         }
         questionNumber = questionNumber + 1
     }

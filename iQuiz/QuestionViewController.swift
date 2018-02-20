@@ -31,7 +31,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceOne.isSelected = true
-            answerSelected = 0;
+            answerSelected = 1;
             answerChoiceTwo.isSelected = false
             answerChoiceThree.isSelected = false
             answerChoiceFour.isSelected = false
@@ -45,7 +45,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceTwo.isSelected = true
-            answerSelected = 1;
+            answerSelected = 2;
             answerChoiceOne.isSelected = false
             answerChoiceThree.isSelected = false
             answerChoiceFour.isSelected = false
@@ -59,7 +59,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceThree.isSelected = true
-            answerSelected = 2;
+            answerSelected = 3;
             answerChoiceTwo.isSelected = false
             answerChoiceOne.isSelected = false
             answerChoiceFour.isSelected = false
@@ -73,7 +73,7 @@ class QuestionViewController: UIViewController {
             submitButton.isEnabled = false
         } else {
             answerChoiceFour.isSelected = true
-            answerSelected = 3;
+            answerSelected = 4;
             answerChoiceTwo.isSelected = false
             answerChoiceOne.isSelected = false
             answerChoiceThree.isSelected = false
