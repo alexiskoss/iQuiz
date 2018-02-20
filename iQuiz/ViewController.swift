@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tblQuiz: UITableView!
     var subjects: [Subject] = []
-    //let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
+    var url: String = ""
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subjects.count
@@ -38,17 +38,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     //settings alert
+    //reference for text field in alert controller https://stackoverflow.com/questions/29808380/swift-insert-alert-box-with-text-input-and-store-text-input
     @IBAction func settingsPress(_ sender: Any) {
-        let alert = UIAlertController(title: "Settings", message: "Settings go here.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Settings", message: "Insert a file you would like to load.", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
-        }))
+        /*alert.addAction(UIAlertAction(title: NSLocalizedString("Check now", comment: "Default action"), style: .`default`, handler: { _ in
+        }))*/
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
+            let file: String = alert.textFields![0].text!
+            print("FILE ----> " + file)
+            self.url = file
+            //self.getJSON(urlString: file)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        alert.addTextField { (textField: UITextField) in
+            textField.placeholder = "URL here"
+        }
         
         self.present(alert, animated: true, completion: nil)
     }
     
     //reference for json parsing from url https://stackoverflow.com/questions/42130002/post-data-and-get-data-from-json-url-in-swift
-    //URLSession methods
+    //URLSession method
     func getJSON(urlString:String){
         let url = URL(string: urlString)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
@@ -68,18 +84,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             //print("QUESTION!!!!---> \(question)")
                             subjectJSON.questions.append(Question(questionText: question["text"] as! String, choices: question["answers"] as! [String] , answer: question["answer"] as! String))
                         }
-                        print(subjectJSON)
+                        //print(subjectJSON)
                         self.subjects.append(subjectJSON)
-                        print(self.subjects)
+                        //print(self.subjects)
                     }
                     DispatchQueue.main.async{
                         self.tblQuiz.reloadData()
                     }
+                    //stored JSON locally
+                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+                    print(NSHomeDirectory() + "/Documents/data")
                 } catch let error as NSError {
                     print(error)
                 }
             }
-            
             }.resume()
     }
     
@@ -87,7 +105,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         //load initial JSON file
-        getJSON(urlString: "https://tednewardsandbox.site44.com/questions.json")
+        if(url == "") {
+            getJSON(urlString: "https://tednewardsandbox.site44.com/questions.json")
+        } else {
+            getJSON(urlString: url)
+        }
         
         //load the initial table
         tblQuiz.dataSource = self
