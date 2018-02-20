@@ -15,10 +15,10 @@ class Subject: NSObject {
     //var choices: [Any] = []
     //var answers: [Int] = []
     
-    init(subjectName: String, subjectDesc: String) {
+    init(subjectName: String, subjectDesc: String, questions:[Question]) {
         self.subjectName = subjectName
         self.subjectDesc = subjectDesc
-        //self.questions = questions
+        self.questions = questions
         //self.choices = choices
         //self.answers = answers
     }
