@@ -24,6 +24,7 @@ class QuestionViewController: UIViewController {
 
     @IBOutlet weak var submitButton: UIButton!
     
+    //allow user to select one of the four answer choices
     @IBAction func pressAnswerOne(_ sender: UIButton) {
         if answerChoiceOne.isSelected {
             answerChoiceOne.isSelected = false
@@ -80,6 +81,7 @@ class QuestionViewController: UIViewController {
         }
     }
     
+    //send the current state to AnswerViewController
     @IBAction func submitPress(_ sender: UIButton) {
         let AnswerViewController = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
         AnswerViewController.subject = self.subject 
@@ -89,6 +91,7 @@ class QuestionViewController: UIViewController {
         self.present(AnswerViewController, animated: true, completion: nil)
     }
     
+    //display the question + answer chocies
     override func viewDidLoad() {
         super.viewDidLoad()
 

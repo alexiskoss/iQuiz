@@ -82,8 +82,7 @@
         <!--End View Controller-->
         <scene sceneID="woW-pf-08g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1wJ-OQ-Fxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="xIK-ju-XRa" customClass="EndViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EndViewController" id="xIK-ju-XRa" customClass="EndViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4yz-bX-gSD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,16 +95,16 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Swx-To-cY0">
-                                <rect key="frame" x="157.33333333333334" y="341" width="99.666666666666657" height="54.333333333333314"/>
+                                <rect key="frame" x="23" y="341" width="0.0" height="54.333333333333314"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukn-UK-XgN">
-                                        <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukn-UK-XgN">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x of y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnm-VI-cGC">
-                                        <rect key="frame" x="0.0" y="34" width="99.666666666666671" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="34" width="0.0" height="20.333333333333329"/>
                                         <color key="backgroundColor" red="0.3283385372" green="0.77777998100000001" blue="0.073620549549999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -137,7 +136,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dD6-PN-buF"/>
                     </view>
+                    <connections>
+                        <outlet property="displayLabel" destination="Ukn-UK-XgN" id="MR0-Fz-nHo"/>
+                        <outlet property="numberCorrectLabel" destination="jnm-VI-cGC" id="9Qf-qp-lGV"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1wJ-OQ-Fxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="145" y="838"/>
         </scene>
@@ -323,6 +327,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="MEL-nl-P4M"/>
+        <segue reference="tEe-eg-jJr"/>
     </inferredMetricsTieBreakers>
 </document>

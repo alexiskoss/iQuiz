@@ -8,6 +8,7 @@
 
 import UIKit
 
+//creates a question for a subject
 class Question: NSObject {
     var questionText: String = ""
     var choices: [String] = []

@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return subjects.count
     }
     
+    //fill the table with the subjects
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
         let subjectName = subjects[indexPath.row].subjectName
@@ -28,12 +29,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    //once you click on a subject, go to a view of the QuestionViewController that has the state of that respective subject
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let QuestionViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
         QuestionViewController.subject = self.subjects[indexPath.row]
         self.present(QuestionViewController, animated: true, completion: nil)
     }
 
+    //settings alert
     @IBAction func settingsPress(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "Settings go here.", preferredStyle: .alert)
         
@@ -45,6 +48,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //load the initial table
         tblQuiz.dataSource = self
         tblQuiz.delegate = self
         tblQuiz.tableFooterView = UIView()

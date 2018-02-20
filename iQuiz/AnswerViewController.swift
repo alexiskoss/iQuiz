@@ -20,15 +20,17 @@ class AnswerViewController: UIViewController {
     @IBOutlet weak var wasItCorrectLabel: UILabel!
     
     
+    //once the page loads, tell the user what the correct answer was and whether they got it correct or not
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //re-display question + correct answer
         questionLabel.text = "Q #\(questionNumber + 1): " + (subject?.questions[questionNumber].questionText)!
         correctAnswer.text = "The correct answer was " +  (subject?.questions[questionNumber].choices[(subject?.questions[questionNumber].answer)!])!
-        if(answerSelected == subject?.questions[questionNumber].answer) {
+        if(answerSelected == subject?.questions[questionNumber].answer) { //correct
             numberCorrect = numberCorrect + 1
             wasItCorrectLabel.text = "You were correct! You have guessed \(numberCorrect) right so far."
-        } else {
+        } else { //not correct
             correctAnswer.backgroundColor = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 0.6)
             wasItCorrectLabel.text = "Sorry, you got it wrong! You answered " + (subject?.questions[questionNumber].choices[(answerSelected)])!
         }
@@ -37,14 +39,18 @@ class AnswerViewController: UIViewController {
     
     //reference on how to override where the segue goes https://stackoverflow.com/questions/26089024/swift-make-button-trigger-segue-to-new-scene
     @IBAction func nextButton(_ sender: UIButton) {
-        if (questionNumber > (subject?.questions.count)!) {
-            
+        if (questionNumber >= (subject?.questions.count)!) {
+            let EndViewController = self.storyboard?.instantiateViewController(withIdentifier: "EndViewController") as! EndViewController
+            EndViewController.subject = self.subject
+            EndViewController.numberCorrect = self.numberCorrect
+            self.present(EndViewController, animated: true, completion: nil)
         } else {
             self.performSegue(withIdentifier: "nextQ", sender: sender)
         }
     }
     
     //reference on how to override what data is passed via a segue https://learnappmaking.com/pass-data-view-controllers-swift-how-to/
+    //this will update to the next question in the questions array
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.destination is QuestionViewController) {
             let QuestionViewController = segue.destination as! QuestionViewController
@@ -58,16 +64,5 @@ class AnswerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

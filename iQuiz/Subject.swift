@@ -8,18 +8,15 @@
 
 import UIKit
 
+//creates a subject with questions
 class Subject: NSObject {
     var subjectName: String = ""
     var subjectDesc: String = ""
-    var questions: [Question] = [] 
-    //var choices: [Any] = []
-    //var answers: [Int] = []
+    var questions: [Question] = []
     
     init(subjectName: String, subjectDesc: String, questions:[Question]) {
         self.subjectName = subjectName
         self.subjectDesc = subjectDesc
         self.questions = questions
-        //self.choices = choices
-        //self.answers = answers
     }
 }
