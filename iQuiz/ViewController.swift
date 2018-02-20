@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tblQuiz: UITableView!
     var subjects: [Subject] = []
+    //let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subjects.count
@@ -46,16 +47,54 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true, completion: nil)
     }
     
+    //reference for json parsing from url https://stackoverflow.com/questions/42130002/post-data-and-get-data-from-json-url-in-swift
+    //URLSession methods
+    func getJSON(urlString:String){
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error ?? "")
+            } else {
+                do {
+                    let response = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let quizDetails = response as? [[String: Any]] ?? []
+                    for subject in quizDetails {
+                        //subjects.append(subject)
+                        //print("SUBJECT!!!!!------> \(String(describing: subject["questions"]))")
+                        let subjectJSON = Subject(subjectName: subject["title"] as! String, subjectDesc: subject["desc"] as! String, questions: [])
+                        let questions = subject["questions"] as! [[String: Any]]
+                        //let questions = arrayOfDetails![0]["questions"] as! [[String: Any]]
+                        for question in questions {
+                            //print("QUESTION!!!!---> \(question)")
+                            subjectJSON.questions.append(Question(questionText: question["text"] as! String, choices: question["answers"] as! [String] , answer: question["answer"] as! String))
+                        }
+                        print(subjectJSON)
+                        self.subjects.append(subjectJSON)
+                        print(self.subjects)
+                    }
+                    DispatchQueue.main.async{
+                        self.tblQuiz.reloadData()
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+            
+            }.resume()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //load initial JSON file
+        getJSON(urlString: "https://tednewardsandbox.site44.com/questions.json")
         
         //load the initial table
         tblQuiz.dataSource = self
         tblQuiz.delegate = self
         tblQuiz.tableFooterView = UIView()
         
-        
-        //define questions
+        /*//define questions
         let mQ1 = Question(questionText: "What is 2 + 22?", choices: ["20", "18", "2", "24"], answer: 4)
         let mQ2 = Question(questionText: "What is -3 + (-11)?", choices: ["-14", "8", "14", "-8"], answer: 1)
         let mQ3 = Question(questionText: "What is 2 * 80?", choices: ["180", "160", "80", "82"], answer: 2)
@@ -73,7 +112,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let science = Subject(subjectName: "Science", subjectDesc: "Do you got what it takes to be a scientist?", questions: [sQ1, sQ2, sQ3])
         
         //add completed subjects
-        subjects = [math, marvel, science]
+        subjects = [math, marvel, science]*/
     }
 
     override func didReceiveMemoryWarning() {

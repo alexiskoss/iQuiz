@@ -12,9 +12,9 @@ import UIKit
 class Question: NSObject {
     var questionText: String = ""
     var choices: [String] = []
-    var answer: Int = 0
+    var answer: String = ""
     
-    init(questionText: String, choices: [String], answer: Int) {
+    init(questionText: String, choices: [String], answer: String) {
         self.questionText = questionText
         self.choices = choices
         self.answer = answer

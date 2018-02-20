@@ -26,8 +26,8 @@ class AnswerViewController: UIViewController {
         
         //re-display question + correct answer
         questionLabel.text = "Q #\(questionNumber + 1): " + (subject?.questions[questionNumber].questionText)!
-        correctAnswer.text = "The correct answer was " +  (subject?.questions[questionNumber].choices[(subject?.questions[questionNumber].answer)! - 1])!
-        if(answerSelected == subject?.questions[questionNumber].answer) { //correct
+        correctAnswer.text = "The correct answer was " +  (subject?.questions[questionNumber].choices[Int((subject?.questions[questionNumber].answer)!)! - 1])!
+        if(answerSelected == Int((subject?.questions[questionNumber].answer)!)!) { //correct
             numberCorrect = numberCorrect + 1
             wasItCorrectLabel.text = "You were correct! You have guessed \(numberCorrect) right so far."
         } else { //not correct
