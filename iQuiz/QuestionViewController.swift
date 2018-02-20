@@ -100,6 +100,11 @@ class QuestionViewController: UIViewController {
         answerChoiceTwo.setTitle(subject?.questions[questionNumber].choices[1], for: .normal)
         answerChoiceThree.setTitle(subject?.questions[questionNumber].choices[2], for: .normal)
         answerChoiceFour.setTitle(subject?.questions[questionNumber].choices[3], for: .normal)
+        
+        answerChoiceOne.titleLabel?.textAlignment = NSTextAlignment.center
+        answerChoiceTwo.titleLabel?.textAlignment = NSTextAlignment.center
+        answerChoiceThree.titleLabel?.textAlignment = NSTextAlignment.center
+        answerChoiceFour.titleLabel?.textAlignment = NSTextAlignment.center
     }
 
     override func didReceiveMemoryWarning() {
