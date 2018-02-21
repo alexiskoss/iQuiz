@@ -48,7 +48,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let file: String = alert.textFields![0].text!
             print("FILE ----> " + file)
             self.url = file
-            //self.getJSON(urlString: file)
+            //https://raw.githubusercontent.com/alexiskoss/iQuiz/master/questions.json
+            self.subjects = []
+            self.getJSON(urlString: file)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
@@ -59,7 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addTextField { (textField: UITextField) in
             textField.placeholder = "URL here"
         }
-        
+        updateDisplayFromDefaults(alert: alert)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -87,13 +89,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         //print(subjectJSON)
                         self.subjects.append(subjectJSON)
                         //print(self.subjects)
+                        //stored JSON locally
+                        
                     }
+                    //store JSON locally
+                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+                    print(NSHomeDirectory() + "/Documents/data")
+                    
                     DispatchQueue.main.async{
                         self.tblQuiz.reloadData()
                     }
-                    //stored JSON locally
-                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
-                    print(NSHomeDirectory() + "/Documents/data")
                 } catch let error as NSError {
                     print(error)
                 }
@@ -101,15 +106,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }.resume()
     }
     
+    
+    //reference for settings bundle https://makeapppie.com/2016/03/14/using-settings-bundles-with-swift/
+    func registerSettingsBundle(){
+        let appDefaults = [String:AnyObject]()
+        UserDefaults.standard.register(defaults: appDefaults)
+    }
+    
+    func updateDisplayFromDefaults(alert: UIAlertController){
+        //Get the defaults
+        let defaults = UserDefaults.standard
+        if let quizURL = defaults.string(forKey: "quiz_preference"){
+            alert.textFields![0].text! = quizURL
+        } else{
+            alert.textFields![0].text! = ""
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //load initial JSON file
-        if(url == "") {
-            getJSON(urlString: "https://tednewardsandbox.site44.com/questions.json")
+        registerSettingsBundle()
+        //UserDefaults.standard.set(url, forKey: "quiz_preference")
+        if(UserDefaults.standard.string(forKey: "quiz_preference") != nil) {
+            url = UserDefaults.standard.string(forKey: "quiz_preference")!
         } else {
-            getJSON(urlString: url)
+            url = "https://tednewardsandbox.site44.com/questions.json"
         }
+        getJSON(urlString: url)
+
         
         //load the initial table
         tblQuiz.dataSource = self
