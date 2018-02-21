@@ -50,6 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.url = file
             //https://raw.githubusercontent.com/alexiskoss/iQuiz/master/questions.json
             self.subjects = []
+            UserDefaults.standard.set(self.url, forKey: "quiz_preference")
             self.getJSON(urlString: file)
         }
         
@@ -69,43 +70,95 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //URLSession method
     func getJSON(urlString:String){
         let url = URL(string: urlString)
-        URLSession.shared.dataTask(with:url!) { (data, response, error) in
-            if error != nil {
-                print(error ?? "")
-            } else {
-                do {
-                    let response = try JSONSerialization.jsonObject(with: data!, options: [])
-                    let quizDetails = response as? [[String: Any]] ?? []
-                    for subject in quizDetails {
-                        //subjects.append(subject)
-                        //print("SUBJECT!!!!!------> \(String(describing: subject["questions"]))")
-                        let subjectJSON = Subject(subjectName: subject["title"] as! String, subjectDesc: subject["desc"] as! String, questions: [])
-                        let questions = subject["questions"] as! [[String: Any]]
-                        //let questions = arrayOfDetails![0]["questions"] as! [[String: Any]]
-                        for question in questions {
-                            //print("QUESTION!!!!---> \(question)")
-                            subjectJSON.questions.append(Question(questionText: question["text"] as! String, choices: question["answers"] as! [String] , answer: question["answer"] as! String))
-                        }
-                        //print(subjectJSON)
-                        self.subjects.append(subjectJSON)
-                        //print(self.subjects)
-                        //stored JSON locally
+        if Reachability.isConnectedToNetwork() == true {
+            URLSession.shared.dataTask(with:url!) { (data, response, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Custom quiz file", message: "Download failed.", preferredStyle: .alert)
+                    let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(confirmAction)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    do {
+                        let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
+                        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
+                        try response?.write(to: path)
                         
+                        let quizDetails = response as? [[String: Any]] ?? []
+                        for subject in quizDetails {
+                            //subjects.append(subject)
+                            //print("SUBJECT!!!!!------> \(String(describing: subject["questions"]))")
+                            let subjectJSON = Subject(subjectName: subject["title"] as! String, subjectDesc: subject["desc"] as! String, questions: [])
+                            let questions = subject["questions"] as! [[String: Any]]
+                            //let questions = arrayOfDetails![0]["questions"] as! [[String: Any]]
+                            for question in questions {
+                                //print("QUESTION!!!!---> \(question)")
+                                subjectJSON.questions.append(Question(questionText: question["text"] as! String, choices: question["answers"] as! [String] , answer: question["answer"] as! String))
+                            }
+                            //print(subjectJSON)
+                            self.subjects.append(subjectJSON)
+                            //print(self.subjects)
+                            //stored JSON locally
+                        }
+                        //store JSON locally
+                        //response!.write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+
+
+                        
+                        print(NSHomeDirectory() + "/Documents")
+                        
+                        DispatchQueue.main.async{
+                            self.tblQuiz.reloadData()
+                        }
+                    } catch let error as NSError {
+                        print(error)
                     }
-                    //store JSON locally
-                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
-                    print(NSHomeDirectory() + "/Documents/data")
-                    
-                    DispatchQueue.main.async{
-                        self.tblQuiz.reloadData()
-                    }
-                } catch let error as NSError {
-                    print(error)
                 }
+                }.resume()
+        } else { //not connected to internet
+            DispatchQueue.main.async{
+                
+                let alert = UIAlertController(title: "No internet connection", message: "Connect your device to the internet.", preferredStyle: .alert)
+                
+                let confirmAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                alert.addAction(confirmAction)
+                
+                self.loadLocal()
+                self.present(alert, animated: true, completion: nil)
+                
             }
-            }.resume()
+        }
     }
     
+    func loadLocal() {
+        print("yes")
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
+        let jsonData = NSArray(contentsOf: path)!
+        print(jsonData);
+        
+        let quizDetails = jsonData as? [[String: Any]] ?? []
+        for subject in quizDetails {
+            //subjects.append(subject)
+            //print("SUBJECT!!!!!------> \(String(describing: subject["questions"]))")
+            let subjectJSON = Subject(subjectName: subject["title"] as! String, subjectDesc: subject["desc"] as! String, questions: [])
+            let questions = subject["questions"] as! [[String: Any]]
+            //let questions = arrayOfDetails![0]["questions"] as! [[String: Any]]
+            for question in questions {
+                //print("QUESTION!!!!---> \(question)")
+                subjectJSON.questions.append(Question(questionText: question["text"] as! String, choices: question["answers"] as! [String] , answer: question["answer"] as! String))
+            }
+            //print(subjectJSON)
+            self.subjects.append(subjectJSON)
+            //print(self.subjects)
+            //stored JSON locally
+            
+            DispatchQueue.main.async{
+                self.tblQuiz.reloadData()
+            }
+        
+        }
+    }
+
     
     //reference for settings bundle https://makeapppie.com/2016/03/14/using-settings-bundles-with-swift/
     func registerSettingsBundle(){
@@ -139,26 +192,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tblQuiz.dataSource = self
         tblQuiz.delegate = self
         tblQuiz.tableFooterView = UIView()
-        
-        /*//define questions
-        let mQ1 = Question(questionText: "What is 2 + 22?", choices: ["20", "18", "2", "24"], answer: 4)
-        let mQ2 = Question(questionText: "What is -3 + (-11)?", choices: ["-14", "8", "14", "-8"], answer: 1)
-        let mQ3 = Question(questionText: "What is 2 * 80?", choices: ["180", "160", "80", "82"], answer: 2)
-            
-        let marQ1 = Question(questionText: "Who is not a Marvel super hero?", choices: ["Spiderman", "Wonder Woman", "Wolverine", "Hulk"], answer: 2)
-        let marQ2 = Question(questionText: "Which Marvel super hero does Tobey Maguire play?", choices: ["Hulk", "Iron Man", "Daredevil", "Spiderman"], answer: 4)
-            
-        let sQ1 = Question(questionText: "In our solar system, which planet has the shortest day?", choices: ["Jupiter", "Pluto", "Earth", "Mars"], answer: 1)
-        let sQ2 = Question(questionText: "How many time zones are there in the world?", choices: ["12", "8", "24", "5"], answer: 3)
-        let sQ3 = Question(questionText: "What is the first element on the periodic table?", choices: ["Oxygen", "Hydrogen", "Helium", "Chloride"], answer: 2)
-        
-        //define subjects
-        let math = Subject(subjectName: "Mathematics", subjectDesc: "Ready to test your math skills?!", questions: [mQ1, mQ2, mQ3])
-        let marvel = Subject(subjectName: "Marvel Super Heroes", subjectDesc: "How well do you really know your super heroes?", questions: [marQ1, marQ2])
-        let science = Subject(subjectName: "Science", subjectDesc: "Do you got what it takes to be a scientist?", questions: [sQ1, sQ2, sQ3])
-        
-        //add completed subjects
-        subjects = [math, marvel, science]*/
     }
 
     override func didReceiveMemoryWarning() {

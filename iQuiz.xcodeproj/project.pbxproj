@@ -18,6 +18,7 @@
 		FC9C87AC203B74F7000D2F9B /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9C87AB203B74F7000D2F9B /* AnswerViewController.swift */; };
 		FC9C87AE203B9B50000D2F9B /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9C87AD203B9B50000D2F9B /* EndViewController.swift */; };
 		FCEDF874203D758E002993AC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FCEDF873203D758E002993AC /* Settings.bundle */; };
+		FCEDF876203D8A1A002993AC /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEDF875203D8A1A002993AC /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FC9C87AB203B74F7000D2F9B /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
 		FC9C87AD203B9B50000D2F9B /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		FCEDF873203D758E002993AC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		FCEDF875203D8A1A002993AC /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			children = (
 				FC4253C4202C358A00501337 /* AppDelegate.swift */,
 				FC4253C6202C358A00501337 /* ViewController.swift */,
+				FCEDF875203D8A1A002993AC /* Reachability.swift */,
 				FCEDF873203D758E002993AC /* Settings.bundle */,
 				FC9C87A7203AE2FB000D2F9B /* Subject.swift */,
 				FC9C87A9203B66F3000D2F9B /* Question.swift */,
@@ -161,6 +164,7 @@
 				FC9C87AE203B9B50000D2F9B /* EndViewController.swift in Sources */,
 				FC4253C7202C358A00501337 /* ViewController.swift in Sources */,
 				FC4253C5202C358A00501337 /* AppDelegate.swift in Sources */,
+				FCEDF876203D8A1A002993AC /* Reachability.swift in Sources */,
 				FC4253D7202C55C600501337 /* QuestionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
