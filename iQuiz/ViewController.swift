@@ -5,6 +5,8 @@
 //  Created by Alexis Koss on 2/7/18.
 //  Copyright © 2018 Alexis Koss. All rights reserved.
 //
+//custom quiz url
+//https://raw.githubusercontent.com/alexiskoss/iQuiz/master/questions.json
 
 import UIKit
 
